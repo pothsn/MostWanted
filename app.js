@@ -99,6 +99,7 @@ function maleOrFemale(input){
 function chars(input){
   return true; // default validation only
 }
+
 function searchByTraits(people){
   var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", traitTypes).trim();
     switch(searchType){
@@ -133,7 +134,18 @@ function searchByGender(people){
       }
     })
   displayPeople(genderList);
-
-
-
  }
+function searchByDateOfBirth(){
+}
+function searchByHeight(){
+  
+}
+function searchByWeight(){
+  
+}
+function searchByEyeColor(){
+  
+}
+function searchByOccupation(){
+ 
+}
