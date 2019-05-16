@@ -89,42 +89,59 @@ function promptFor(question, valid){
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
-function traitTypes(input){
+function selectTraitTypes(input){
   return input.toLowerCase()  == "gender" || input.toLowerCase() == "dateofbirth" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
 }
-function maleOrFemale(input){
+function selectMaleOrFemale(input){
     return input.toLowerCase() == "male" || input.toLowerCase() == "female";
 }
+// function selectBirthRange(input){
+//   return input.toLowerCase() = 
+// }
+// function selectWeightRange(input){
+//   return input.toLowerCase() =
+// }
+function selectEyeColor(input){
+  return input.toLowerCase() == "black" || input.toLowerCase() == "blue" || input.toLowerCase() == "brown" || input.toLowerCase() == "green" || input.toLowerCase() == "hazel";
+}
+function selectOccupation(input){
+  return input.toLowerCase() == "architect" || input.toLowerCase() == "assistant" || input.toLowerCase() == "doctor" || input.toLowerCase() == "landscaper" || input.toLowerCase() == "nurse" || input.toLowerCase() == "politician" || input.toLowerCase() == "programmer" || input.toLowerCase() == "student";
+}
+
+
+
+
+
+
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
 }
-
 function searchByTraits(people){
-  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", traitTypes).trim();
+  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes).trim();
     switch(searchType){
       case 'gender':
         searchByGender(people);
         break;
       case 'dateofbirth':
-        searchByDateOfBirth();
+        searchByDateOfBirth(people);
         break;
       case 'height':
-        searchByHeight();
+        searchByHeight(people);
         break;
       case 'weight':
-        searchByWeight();
+        searchByWeight(people);
         break;
       case 'eyecolor':
-        searchByEyeColor();
+        searchByEyeColor(people);
         break;
       case 'occupation':
-        searchByOccupation();
+        searchByOccupation(people);
         break;
     }
 }
 function searchByGender(people){
-  var searchGender = promptFor("Enter gender: Male or female.", maleOrFemale).trim();
+  var searchGender = promptFor("Enter gender: Male or female.", selectMaleOrFemale).trim();
     var genderList = people.filter(function(person){
       if(person.gender === searchGender){
         return true;
@@ -143,9 +160,27 @@ function searchByHeight(){
 function searchByWeight(){
   
 }
-function searchByEyeColor(){
+function searchByEyeColor(people){
+  var searchEyeColor = promptFor("Enter eye color: Black, blue, brown, green or hazel", selectEyeColor).trim();
+    let eyeColorList = people.filter(function(person){
+      if(person.eyecolor === searchEyeColor){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
   
 }
-function searchByOccupation(){
+function searchByOccupation(people){
+  var searchOccupation = promptFor("Enter occupation: Architect, assistant, doctor, landscaper, nurse, politician, programmer or student.", selectOccupation).trim();
+    let occupationList = people.filter(function(person){
+      if(person.occupation === searchOccupation){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
  
 }
