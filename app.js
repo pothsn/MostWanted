@@ -12,12 +12,13 @@ function app(people){
     break;
     case 'no':
     // TODO: search by traits
-    var foundPerson = seachByTraits(people);
+    var foundPerson = searchByTraits(people);
     break;
     default:
     app(people); // restart app
     break;
   }
+  mainMenu(foundPerson[0], people);
 }
 
 // Menu function to call once you find who you are looking for
@@ -96,15 +97,18 @@ function promptFor(question, valid){
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
-function oneOfThese(input){
+function traitTypes(input){
   return input.toLowerCase()  == "gender" || input.toLowerCase() == "dateofbirth" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
+}
+function maleOrFemale(input){
+    return input.toLowerCase() == "male" || input.toLowerCase() == "female";
 }
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
 }
-function searchByTrits(people){
-  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", oneOfThese).trim();
+function searchByTraits(people){
+  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", traitTypes).trim();
     switch(searchType){
       case: 'gender'
         searchByGender(people);
@@ -127,8 +131,25 @@ function searchByTrits(people){
     }
 }
 function searchByGender(people){
-  var searchGender = promptFor  
+  var searchGender = promptFor("Enter gender: Male or female.", maleOrFemale).trim();
+   switch(searchtype){
+    case: 'male'
+      var results = listMales(people);
+      break;
+    case: 'female'
+      let results = listFemales(people);
+      break;
+   }
 }
+function listMales(people){
+  alert(people.map(function(people.gender.male){
+}
+
+function listFemales(people){
+  alert(people.map(function(people.gender.female){
+}
+
+
 function searchByDateOfBirth(){
   
 }
@@ -144,3 +165,4 @@ function searchByEyeColor(){
 function searchByOccupation(){
   
 }
+
