@@ -1,10 +1,3 @@
-
-    
-/*
-Build all of your functions for displaying and gathering information below (GUI).
-*/
-
-// app is the function called to start the entire application
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
@@ -63,9 +56,6 @@ function searchByName(people){
     if(person.firstName === firstName && person.lastName === lastName){
       return true;
     }
-    else{
-      return false;
-    }
   })
   // TODO: find the person using the name they entered
   return foundPerson;
@@ -92,7 +82,7 @@ function promptFor(question, valid){
   do{
     var response = prompt(question).trim();
   } while(!response || !valid(response));
-  return response;
+  return response.toLowerCase();
 }
 
 // helper function to pass into promptFor to validate yes/no answers
@@ -112,58 +102,38 @@ function chars(input){
 function searchByTraits(people){
   var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", traitTypes).trim();
     switch(searchType){
-      case: 'gender'
+      case 'gender':
         searchByGender(people);
         break;
-      case: 'dateofbirth'
+      case 'dateofbirth':
         searchByDateOfBirth();
         break;
-      case: 'height'
+      case 'height':
         searchByHeight();
         break;
-      case: 'weight'
+      case 'weight':
         searchByWeight();
         break;
-      case: 'eyecolor'
+      case 'eyecolor':
         searchByEyeColor();
         break;
-      case: 'occupation'
+      case 'occupation':
         searchByOccupation();
         break;
     }
 }
 function searchByGender(people){
   var searchGender = promptFor("Enter gender: Male or female.", maleOrFemale).trim();
-   switch(searchtype){
-    case: 'male'
-      var results = listMales(people);
-      break;
-    case: 'female'
-      let results = listFemales(people);
-      break;
-   }
-}
-function listMales(people){
-  alert(people.map(function(people.gender.male){
-}
-
-function listFemales(people){
-  alert(people.map(function(people.gender.female){
-}
+    var genderList = people.filter(function(person){
+      if(person.gender === searchGender){
+        return true;
+      }
+      else{
+        return false;      
+      }
+    })
+  displayPeople(genderList);
 
 
-function searchByDateOfBirth(){
-  
-}
-function searchByHeight(){
-  
-}
-function searchByWeight(){
-  
-}
-function searchByEyeColor(){
-  
-}
-function searchByOccupation(){
-  
-}
+
+ }
