@@ -80,9 +80,9 @@ function displayPerson(person){
 // function that prompts and validates user input
 function promptFor(question, valid){
   do{
-    var response = prompt(question).trim();
+    var response = prompt(question).replace(/ /g,'').toLowerCase();
   } while(!response || !valid(response));
-  return response.toLowerCase();
+  return response;
 }
 
 // helper function to pass into promptFor to validate yes/no answers
@@ -93,7 +93,7 @@ function selectTraitTypes(input){
   return input.toLowerCase()  == "gender" || input.toLowerCase() == "dateofbirth" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
 }
 function selectMaleOrFemale(input){
-    return input.toLowerCase() == "male" || input.toLowerCase() == "female";
+  return input.toLowerCase() == "male" || input.toLowerCase() == "female";
 }
 // function selectBirthRange(input){
 //   return input.toLowerCase() = 
@@ -107,18 +107,12 @@ function selectEyeColor(input){
 function selectOccupation(input){
   return input.toLowerCase() == "architect" || input.toLowerCase() == "assistant" || input.toLowerCase() == "doctor" || input.toLowerCase() == "landscaper" || input.toLowerCase() == "nurse" || input.toLowerCase() == "politician" || input.toLowerCase() == "programmer" || input.toLowerCase() == "student";
 }
-
-
-
-
-
-
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
 }
 function searchByTraits(people){
-  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes).trim();
+  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes);
     switch(searchType){
       case 'gender':
         searchByGender(people);
@@ -152,12 +146,12 @@ function searchByGender(people){
     })
   displayPeople(genderList);
  }
-function searchByDateOfBirth(){
+function searchByDateOfBirth(people){
 }
-function searchByHeight(){
+function searchByHeight(people){
   
 }
-function searchByWeight(){
+function searchByWeight(people){
   
 }
 function searchByEyeColor(people){
@@ -170,7 +164,7 @@ function searchByEyeColor(people){
         return false;
       }
     })
-  
+  displayPeople(eyeColorList);  
 }
 function searchByOccupation(people){
   var searchOccupation = promptFor("Enter occupation: Architect, assistant, doctor, landscaper, nurse, politician, programmer or student.", selectOccupation).trim();
@@ -182,5 +176,5 @@ function searchByOccupation(people){
         return false;
       }
     })
- 
+  displayPeople(occupationList);
 }
