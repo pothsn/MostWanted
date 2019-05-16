@@ -97,7 +97,7 @@ function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 function oneOfThese(input){
-  return input.toLowerCase()  == "gender" || input.toLowerCase() == "dateofbirth" || input.toLowerCase() == "height" input.toLowerCase() == "weight" input.toLowerCase() == "eyecolor" input.toLowerCase() == "occupation";
+  return input.toLowerCase()  == "gender" || input.toLowerCase() == "dateofbirth" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
 }
 // helper function to pass in as default promptFor validation
 function chars(input){
@@ -107,7 +107,7 @@ function searchByTrits(people){
   var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", oneOfThese).trim();
     switch(searchType){
       case: 'gender'
-        searchByGender();
+        searchByGender(people);
         break;
       case: 'dateofbirth'
         searchByDateOfBirth();
