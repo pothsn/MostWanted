@@ -7,11 +7,12 @@ function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-    // TODO: search by name
+      // TODO: search by name
     var foundPerson = searchByName(people);
     break;
     case 'no':
     // TODO: search by traits
+    var foundPerson = seachByTraits(people);
     break;
     default:
     app(people); // restart app
@@ -95,8 +96,51 @@ function promptFor(question, valid){
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
-
+function oneOfThese(input){
+  return input.toLowerCase()  == "gender" || input.toLowerCase() == "dateofbirth" || input.toLowerCase() == "height" input.toLowerCase() == "weight" input.toLowerCase() == "eyecolor" input.toLowerCase() == "occupation";
+}
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+}
+function searchByTrits(people){
+  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", oneOfThese).trim();
+    switch(searchType){
+      case: 'gender'
+        searchByGender();
+        break;
+      case: 'dateofbirth'
+        searchByDateOfBirth();
+        break;
+      case: 'height'
+        searchByHeight();
+        break;
+      case: 'weight'
+        searchByWeight();
+        break;
+      case: 'eyecolor'
+        searchByEyeColor();
+        break;
+      case: 'occupation'
+        searchByOccupation();
+        break;
+    }
+}
+function searchByGender(people){
+  var searchGender = promptFor  
+}
+function searchByDateOfBirth(){
+  
+}
+function searchByHeight(){
+  
+}
+function searchByWeight(){
+  
+}
+function searchByEyeColor(){
+  
+}
+function searchByOccupation(){
+  
 }
