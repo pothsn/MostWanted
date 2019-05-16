@@ -100,3 +100,36 @@ function yesNo(input){
 function chars(input){
   return true; // default validation only
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function searchByGender(people){
+	var thing = "poop"
+}
