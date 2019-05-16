@@ -1,3 +1,5 @@
+
+    
 /*
 Build all of your functions for displaying and gathering information below (GUI).
 */
@@ -7,16 +9,18 @@ function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   switch(searchType){
     case 'yes':
-    // TODO: search by name
+      // TODO: search by name
     var foundPerson = searchByName(people);
     break;
     case 'no':
     // TODO: search by traits
+    var foundPerson = searchByTraits(people);
     break;
     default:
     app(people); // restart app
     break;
   }
+  mainMenu(foundPerson[0], people);
 }
 
 // Menu function to call once you find who you are looking for
@@ -95,41 +99,73 @@ function promptFor(question, valid){
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
-
+function traitTypes(input){
+  return input.toLowerCase()  == "gender" || input.toLowerCase() == "dateofbirth" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
+}
+function maleOrFemale(input){
+    return input.toLowerCase() == "male" || input.toLowerCase() == "female";
+}
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function searchByGender(people){
-	var thing = "poop"
+function searchByTraits(people){
+  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", traitTypes).trim();
+    switch(searchType){
+      case: 'gender'
+        searchByGender(people);
+        break;
+      case: 'dateofbirth'
+        searchByDateOfBirth();
+        break;
+      case: 'height'
+        searchByHeight();
+        break;
+      case: 'weight'
+        searchByWeight();
+        break;
+      case: 'eyecolor'
+        searchByEyeColor();
+        break;
+      case: 'occupation'
+        searchByOccupation();
+        break;
+    }
 }
+function searchByGender(people){
+  var searchGender = promptFor("Enter gender: Male or female.", maleOrFemale).trim();
+   switch(searchtype){
+    case: 'male'
+      var results = listMales(people);
+      break;
+    case: 'female'
+      let results = listFemales(people);
+      break;
+   }
+}
+function listMales(people){
+  alert(people.map(function(people.gender.male){
+}
+
+function listFemales(people){
+  alert(people.map(function(people.gender.female){
+}
+
+
+function searchByDateOfBirth(){
+  
+}
+function searchByHeight(){
+  
+}
+function searchByWeight(){
+  
+}
+function searchByEyeColor(){
+  
+}
+function searchByOccupation(){
+  
+}
+
