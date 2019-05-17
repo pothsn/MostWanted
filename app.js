@@ -94,7 +94,7 @@ function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 function selectTraitTypes(input){
-  return input.toLowerCase()  == "gender" || input.toLowerCase() == "dateofbirth" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
+  return input.toLowerCase()  == "gender" || input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
 }
 function selectMaleOrFemale(input){
   return input.toLowerCase() == "male" || input.toLowerCase() == "female";
@@ -119,15 +119,15 @@ function chars(input){
   return true; // default validation only
 }
 function searchByTraits(people){
-  var searchType = promptFor("Which trait would you like to search by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes).trim();
+  var searchType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
 
   var results = [];
     switch(searchType){
       case 'gender':
         results = searchByGender(people);
         break;
-      case 'dateofbirth':
-        searchByDateOfBirth(people);
+      case 'age':
+        searchByAge(people);
         break;
       case 'height':
         searchByHeight(people);
@@ -170,15 +170,24 @@ function searchByAge(people){
   displayPeople(ageList);
   return ageList;
 }
-
-function convertDOBsToAges(people) {
+function convertDOBsToAges(people){
   var today = new Date();
-    people = people.map(function(person) {
-      // need to grab person dob and split the string
-      // let personBirthdate = new Date(yyyy, mm, dd);
-      let age = 
+    people.map(function(person){
+      let persondob = person.dob.split("/");
+      let month = persondob[0];
+      let day = persondob[1];
+      let year = persondob[2];
+      let personBirthYear = today.getFullYear() - year;
+        if(today.getMonth() > month){
+          personBirthYear ++
+        }
+        else if(today.getMonth == month){
+          if(today.getDate() > day){
+            personBirthYear++
+          }
+        }
+      let age = personBirthYear
       person.age = age;
-      return person;
     });
 }
 
