@@ -16,6 +16,7 @@ function app(people){
     break;
   }
   if (foundPerson.length === 1) {
+    searchByTraits(foundPerson);
       mainMenu(foundPerson[0], people);
   }
 }
@@ -57,8 +58,11 @@ function searchByName(people){
   var lastName = promptFor("What is the person's last name?", chars);
 
   var foundPerson = people.filter(function(person){
-    if(person.firstName === firstName && person.lastName === lastName){
+    if(person.firstName.toLowerCase() === firstName && person.lastName.toLowerCase() === lastName){
       return true;
+    }
+      else{
+      return false
     }
   })
   // TODO: find the person using the name they entered
@@ -117,6 +121,7 @@ function selectOccupation(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+  //more to do here???
 }
 function searchByTraits(people){
   var searchType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
