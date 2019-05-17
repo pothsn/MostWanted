@@ -102,9 +102,9 @@ function selectMaleOrFemale(input){
 // function selectBirthRange(input){
 //   return input.toLowerCase() = 
 // }
-// function selectWeightRange(input){
-//   return input.toLowerCase() =
-// }
+function isNumber(input){
+  return !isNaN(input); 
+}
 function selectEyeColor(input){
   return input.toLowerCase() == "black" || input.toLowerCase() == "blue" || input.toLowerCase() == "brown" || input.toLowerCase() == "green" || input.toLowerCase() == "hazel";
 }
@@ -160,7 +160,18 @@ function searchByHeight(people){
   
 }
 function searchByWeight(people){
-  
+    var searchWeight = promptFor("Enter weight.", isNumber).trim();
+      
+        var weightList = people.filter(function(person){
+          if(person.weight == searchWeight){
+            return true;
+          }
+          else{
+            return false
+          }
+        })
+    displayPeople(weightList);
+    return weightList;
 }
 function searchByEyeColor(people){
   var searchEyeColor = promptFor("Enter eye color: Black, blue, brown, green or hazel", selectEyeColor).trim();
@@ -172,7 +183,8 @@ function searchByEyeColor(people){
         return false;
       }
     })
-  displayPeople(eyeColorList);  
+  displayPeople(eyeColorList);
+  return eyeColorList;
 }
 function searchByOccupation(people){
   var searchOccupation = promptFor("Enter occupation: Architect, assistant, doctor, landscaper, nurse, politician, programmer or student.", selectOccupation).trim();
@@ -185,4 +197,5 @@ function searchByOccupation(people){
       }
     })
   displayPeople(occupationList);
+  return occupationList;
 }
