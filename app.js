@@ -4,21 +4,17 @@ function app(people){
   var foundPerson;
   switch(searchType){
     case 'yes':
-      // TODO: search by name
     foundPerson = searchByName(people);
     break;
     case 'no':
-    // TODO: search by traits
     foundPerson = searchByTraits(people);
     break;
     default:
-    app(people); // restart app
+    app(people);
     break;
   }
-  if (foundPerson.length === 1) {
-    searchByTraits(foundPerson);
-      mainMenu(foundPerson[0], people);
-  }
+
+    mainMenu(foundPerson[0], people);
 }
 
 // Menu function to call once you find who you are looking for
@@ -35,7 +31,7 @@ function mainMenu(person, people){
 
   switch(displayOption){
     case "info":
-    // TODO: get person's info
+      displayPeople(people)
     break;
     case "family":
     // TODO: get person's family
@@ -97,17 +93,15 @@ function promptFor(question, valid){
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
+function selectSingleOrMulti(input){
+  return input.toLowerCase() == "onetrait" || input.toLowerCase() == "multipletraits"
+}
 function selectTraitTypes(input){
   return input.toLowerCase()  == "gender" || input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
 }
 function selectMaleOrFemale(input){
   return input.toLowerCase() == "male" || input.toLowerCase() == "female";
 }
-// function selectBirthRange(input){
-//   return input.toLowerCase() = 
-// }
-
-
 function isNumber(input){
   return !isNaN(input); 
 }
@@ -124,12 +118,20 @@ function chars(input){
   //more to do here???
 }
 function searchByTraits(people){
-  var searchType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
-
+  var searchType = promptFor("Would you like to search by one trait or multiple traits? Enter one trait or multiple traits.", selectSingleOrMulti).trim();
+    switch (searchType){
+      case "onetrait":
+        searchByOneTrait(people);
+      case "multipletraits":
+        searchByMultipleTraits(people);
+    } 
+}
+function searchByMultipleTrait(people){
+  var searchTraitType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
   var results = [];
-    switch(searchType){
+    switch(searchTraitType){
       case 'gender':
-        results = searchByGender(people);
+        searchByGender(people);
         break;
       case 'age':
         searchByAge(people);
@@ -146,8 +148,54 @@ function searchByTraits(people){
       case 'occupation':
         searchByOccupation(people);
         break;
-    }
-    return results;
+      }
+      while(results.length > 1){
+        searchByOneTrait(results);
+      }
+   return results;
+}
+function searchByOneTrait(people){
+var searchTraitType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
+  var results = [];
+    switch(searchTraitType){
+      case 'gender':
+        results = searchByGender(people);
+        break;
+      case 'age':
+        result = searchByAge(people);
+        break;
+      case 'height':
+         results = searchByHeight(people);
+        break;
+      case 'weight':
+        results = searchByWeight(people);
+        break;
+      case 'eyecolor':
+        results = searchByEyeColor(people);
+        break;
+      case 'occupation':
+        results = searchByOccupation(people);
+        break;
+      }
+      var selectName = prompt(results.map(function(person){
+    return person.firstName + " " + person.lastName;
+  }).join("\n") + "\n Is the person you are looking for listed here? Enter their name or quit").toLowerCase();
+        if(selectName == "quit"){
+          app(people);
+        } 
+        else{
+          let splitName = selectName.split(" ");
+
+        var foundPerson = people.filter(function(person){
+          if(person.firstName.toLowerCase() === splitName[0].toLowerCase() && person.lastName.toLowerCase() === splitName[1].toLowerCase()){
+            return true;
+          }
+            else{
+            return false
+          }
+        })
+        mainMenu(foundPerson[0], people)
+        }
 }
 function searchByGender(people){
   var searchGender = promptFor("Enter gender: Male or female.", selectMaleOrFemale).trim();
