@@ -1,39 +1,29 @@
-
-    
-/*
-Build all of your functions for displaying and gathering information below (GUI).
-*/
-
-// app is the function called to start the entire application
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  var foundPerson;
   switch(searchType){
     case 'yes':
-      // TODO: search by name
-    var foundPerson = searchByName(people);
+    foundPerson = searchByName(people);
     break;
     case 'no':
-    // TODO: search by traits
-    var foundPerson = searchByTraits(people);
+    foundPerson = searchByTraits(people);
     break;
     default:
     app(people); // restart app
     break;
   }
-  mainMenu(foundPerson[0], people);
+      mainMenu(foundPerson[0], people);
 }
 
-// Menu function to call once you find who you are looking for
 function mainMenu(person, people){
 
-  /* Here we pass in the entire person object that we found in our search, as well as the entire original dataset of people. We need people in order to find descendants and other information that the user may want. */
 
   if(!person){
     alert("Could not find that individual.");
     return app(people); // restart
   }
 
-  var displayOption = prompt("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'");
+  var displayOption = promptPersonFound("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", selectPromptPersonFound).toLowerCase();
 
   switch(displayOption){
     case "info":
@@ -60,14 +50,14 @@ function searchByName(people){
   var lastName = promptFor("What is the person's last name?", chars);
 
   var foundPerson = people.filter(function(person){
-    if(person.firstName === firstName && person.lastName === lastName){
+    if(person.firstName.toLowerCase() === firstName && person.lastName.toLowerCase() === lastName){
       return true;
     }
     else{
       return false;
     }
   })
-  // TODO: find the person using the name they entered
+
   return foundPerson;
 }
 
@@ -90,7 +80,14 @@ function displayPerson(person){
 // function that prompts and validates user input
 function promptFor(question, valid){
   do{
-    var response = prompt(question).trim();
+    var response = prompt(question).replace(/ /g,'').toLowerCase();
+  } while(!response || !valid(response));
+  return response;
+}
+
+function promptPersonFound(question, valid){
+  do{
+    var response = prompt(question).replace(/ /g,'').toLowerCase();
   } while(!response || !valid(response));
   return response;
 }
@@ -99,73 +96,127 @@ function promptFor(question, valid){
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
-function traitTypes(input){
+function selectTraitTypes(input){
   return input.toLowerCase()  == "gender" || input.toLowerCase() == "dateofbirth" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
 }
-function maleOrFemale(input){
-    return input.toLowerCase() == "male" || input.toLowerCase() == "female";
+function selectMaleOrFemale(input){
+  return input.toLowerCase() == "male" || input.toLowerCase() == "female";
 }
+// function selectBirthRange(input){
+//   return input.toLowerCase() = 
+// }
+
+
+function isNumber(input){
+  return !isNaN(input); 
+}
+
+function selectEyeColor(input){
+  return input.toLowerCase() == "black" || input.toLowerCase() == "blue" || input.toLowerCase() == "brown" || input.toLowerCase() == "green" || input.toLowerCase() == "hazel";
+}
+function selectOccupation(input){
+  return input.toLowerCase() == "architect" || input.toLowerCase() == "assistant" || input.toLowerCase() == "doctor" || input.toLowerCase() == "landscaper" || input.toLowerCase() == "nurse" || input.toLowerCase() == "politician" || input.toLowerCase() == "programmer" || input.toLowerCase() == "student";
+}
+function selectPromptPersonFound(input){
+  return input.toLowerCase() == "info" || input.toLowerCase() == "family" || input.toLowerCase() == "descendants" || input.toLowerCase() == "restart" || input.toLowerCase() == "quit";
+}
+
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
 }
-
 function searchByTraits(people){
-  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", traitTypes).trim();
+  var searchType = promptFor("Which trait would you like to search by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes).trim();
+
+  var results = [];
     switch(searchType){
-      case: 'gender'
-        searchByGender(people);
+      case 'gender':
+        results = searchByGender(people);
         break;
-      case: 'dateofbirth'
-        searchByDateOfBirth();
+      case 'dateofbirth':
+        searchByDateOfBirth(people);
         break;
-      case: 'height'
-        searchByHeight();
+      case 'height':
+        searchByHeight(people);
         break;
-      case: 'weight'
-        searchByWeight();
+      case 'weight':
+        searchByWeight(people);
         break;
-      case: 'eyecolor'
-        searchByEyeColor();
+      case 'eyecolor':
+        searchByEyeColor(people);
         break;
-      case: 'occupation'
-        searchByOccupation();
+      case 'occupation':
+        searchByOccupation(people);
         break;
     }
+    return results;
 }
 function searchByGender(people){
-  var searchGender = promptFor("Enter gender: Male or female.", maleOrFemale).trim();
-   switch(searchtype){
-    case: 'male'
-      var results = listMales(people);
-      break;
-    case: 'female'
-      let results = listFemales(people);
-      break;
-   }
-}
-function listMales(people){
-  alert(people.map(function(people.gender.male){
-}
+  var searchGender = promptFor("Enter gender: Male or female.", selectMaleOrFemale).trim();
+    var genderList = people.filter(function(person){
+      if(person.gender === searchGender){
+        return true;
+      }
+      else{
+        return false;      
+      }
+    })
+  displayPeople(genderList);
+  return genderList;
+ }
+function searchByDateOfBirth(people){
 
-function listFemales(people){
-  alert(people.map(function(people.gender.female){
 }
-
-
-function searchByDateOfBirth(){
-  
+function searchByHeight(people){
+  var searchHeight = promptFor("Enter the person's height", isNumber).trim();
+    let heightList = people.filter(function(person){
+      if(person.height == searchHeight){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+  displayPeople(heightList);  
+  return heightList;
 }
-function searchByHeight(){
-  
+function searchByWeight(people){
+    var searchWeight = promptFor("Enter weight.", isNumber).trim();
+      
+        var weightList = people.filter(function(person){
+          if(person.weight == searchWeight){
+            return true;
+          }
+          else{
+            return false
+          }
+        })
+    displayPeople(weightList);
+    return weightList;
 }
-function searchByWeight(){
-  
+function searchByEyeColor(people){
+  var searchEyeColor = promptFor("Enter eye color: Black, blue, brown, green or hazel", selectEyeColor).trim();
+    let eyeColorList = people.filter(function(person){
+      if(person.eyeColor === searchEyeColor){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+  displayPeople(eyeColorList);
+  return eyeColorList;
 }
-function searchByEyeColor(){
-  
+function searchByOccupation(people){
+  var searchOccupation = promptFor("Enter occupation: Architect, assistant, doctor, landscaper, nurse, politician, programmer or student.", selectOccupation).trim();
+    let occupationList = people.filter(function(person){
+      if(person.occupation === searchOccupation){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+  displayPeople(occupationList);
+  return occupationList;
 }
-function searchByOccupation(){
-  
-}
-
