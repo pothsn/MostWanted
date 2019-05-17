@@ -1,4 +1,5 @@
 function app(people){
+  convertDOBsToAges(people);
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   var foundPerson;
   switch(searchType){
@@ -15,7 +16,6 @@ function app(people){
     break;
   }
   if (foundPerson.length === 1) {
-    searchByTraits(foundPerson);
       mainMenu(foundPerson[0], people);
   }
 }
@@ -157,9 +157,31 @@ function searchByGender(people){
   displayPeople(genderList);
   return genderList;
  }
-function searchByDateOfBirth(people){
-
+function searchByAge(people){
+  var searchAge = promptFor("Enter age.", isNumber).trim();
+    var ageList = people.filter(function(person){
+      if(person.age == searchAge){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+  displayPeople(ageList);
+  return ageList;
 }
+
+function convertDOBsToAges(people) {
+  var today = new Date();
+    people = people.map(function(person) {
+      // need to grab person dob and split the string
+      // let personBirthdate = new Date(yyyy, mm, dd);
+      let age = 
+      person.age = age;
+      return person;
+    });
+}
+
 function searchByHeight(people){
   var searchHeight = promptFor("Enter the person's height", isNumber).trim();
     let heightList = people.filter(function(person){
@@ -173,6 +195,7 @@ function searchByHeight(people){
   displayPeople(heightList);  
   return heightList;
 }
+
 function searchByWeight(people){
     var searchWeight = promptFor("Enter weight.", isNumber).trim();
       
