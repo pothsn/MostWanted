@@ -31,7 +31,7 @@ function mainMenu(person, people){
     info = displayPerson(person);
     break;
     case "family":
-    family = displayFamily(person);
+    family = displayFamily(person, people);
     // TODO: get person's family
     break;
     case "descendants":
@@ -84,12 +84,20 @@ function displayPerson(person){
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
-function displayFamily(person){
+function displayFamily(person, people){
+  var parents = searchForParents(person, people);
 
- 
-  var personInfo = "Parents: " + person.parents + "\n";
-  // personInfo += "Children: " + person.asdfasf + "\n";
-  // TODO: finish getting the rest of the information to display
+  let personInfo = "";
+  if(parents.length === 0){
+    personInfo = "No Parents"
+  }
+  for (let index = 0; index < parents.length; index++) {
+    const element = parents[index];
+   personInfo += "Parents First Name: " + element.firstName +"\n";
+  }
+  // var personInfo = "Parents: " + person.parents + "\n";
+  // // personInfo += "Children: " + person.asdfasf + "\n";
+  // // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
 
@@ -222,10 +230,42 @@ function convertDOBsToAges(people){
     });
 }
 
-function searchForParents();
-function searchForCurrentSpouse();
 
-function searchForSiblings();
+// function searchByName(people){
+//   var firstName = promptFor("What is the person's first name?", chars);
+//   var lastName = promptFor("What is the person's last name?", chars);
+
+//   var foundPerson = people.filter(function(person){
+//     if(person.firstName.toLowerCase() === firstName && person.lastName.toLowerCase() === lastName){
+//       return true;
+//     }
+//       else{
+//       return false
+//     }
+//   })
+
+//   return foundPerson;
+// }
+function searchForParents(person, people){
+
+  var parentsName = people.filter(function(p){
+    for (let index = 0; index < person.parents.length; index++) {
+      const element = person.parents[index];
+      return element === p.id; 
+    }
+  });
+return parentsName;
+}
+
+
+//   people.find(searchForParents("parents"[0]));
+//   function displayPerson(person){
+//     var personInfo = "First Name: " + person.firstName + "\n";
+//     personInfo += "Last Name: " + person.lastName + "\n";
+// // {
+// function searchForCurrentSpouse();
+
+// function searchForSiblings();
 
 
 
