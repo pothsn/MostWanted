@@ -102,13 +102,12 @@ function selectMaleOrFemale(input){
 // function selectBirthRange(input){
 //   return input.toLowerCase() = 
 // }
-function selectHeight(input){
-  return input.toLowerCase() == 58 || input.toLowerCase() == 59 || input.toLowerCase() == 61 || input.toLowerCase() == 62 || input.toLowerCase() == 63 || input.toLowerCase() == 65 || input.toLowerCase() == 66 || input.toLowerCase() == 67 || input.toLowerCase() == 69 || input.toLowerCase() == 70 || input.toLowerCase() == 71 || input.toLowerCase() == 72 || input.toLowerCase() == 74 || input.toLowerCase() == 76;
+
+
+function isNumber(input){
+  return !isNaN(input); 
 }
 
-// function selectWeightRange(input){
-//   return input.toLowerCase() =
-// }
 function selectEyeColor(input){
   return input.toLowerCase() == "black" || input.toLowerCase() == "blue" || input.toLowerCase() == "brown" || input.toLowerCase() == "green" || input.toLowerCase() == "hazel";
 }
@@ -121,6 +120,7 @@ function chars(input){
 }
 function searchByTraits(people){
   var searchType = promptFor("Which trait would you like to search by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes).trim();
+
   var results = [];
     switch(searchType){
       case 'gender':
@@ -174,7 +174,18 @@ function searchByHeight(people){
   return heightList;
 }
 function searchByWeight(people){
-  
+    var searchWeight = promptFor("Enter weight.", isNumber).trim();
+      
+        var weightList = people.filter(function(person){
+          if(person.weight == searchWeight){
+            return true;
+          }
+          else{
+            return false
+          }
+        })
+    displayPeople(weightList);
+    return weightList;
 }
 function searchByEyeColor(people){
   var searchEyeColor = promptFor("Enter eye color: Black, blue, brown, green or hazel", selectEyeColor).trim();
@@ -186,7 +197,8 @@ function searchByEyeColor(people){
         return false;
       }
     })
-  displayPeople(eyeColorList);  
+  displayPeople(eyeColorList);
+  return eyeColorList;
 }
 function searchByOccupation(people){
   var searchOccupation = promptFor("Enter occupation: Architect, assistant, doctor, landscaper, nurse, politician, programmer or student.", selectOccupation).trim();
@@ -199,4 +211,5 @@ function searchByOccupation(people){
       }
     })
   displayPeople(occupationList);
+  return occupationList;
 }
