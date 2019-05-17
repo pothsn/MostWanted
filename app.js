@@ -27,13 +27,15 @@ function mainMenu(person, people){
   var displayOption = promptPersonFound("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", selectPromptPersonFound).toLowerCase();
 
   switch(displayOption){
-    case "info":
-    // TODO: get person's info
+    case 'info':
+    info = displayPerson(person);
     break;
     case "family":
+    family = displayFamily(person);
     // TODO: get person's family
     break;
     case "descendants":
+    descendants = displayDescendants(person)
     // TODO: get person's descendants
     break;
     case "restart":
@@ -74,6 +76,27 @@ function displayPerson(person){
   // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
+  personInfo += "height: " + person.height + "\n";
+  personInfo += "weight: " + person.weight + "\n";
+  personInfo += "age: " + person.age + "\n";
+  personInfo += "eye color: " + person.eyeColor + "\n";
+  personInfo += "occupation: " + person.occupation + "\n";
+  // TODO: finish getting the rest of the information to display
+  alert(personInfo);
+}
+function displayFamily(person){
+
+ 
+  var personInfo = "Parents: " + person.parents + "\n";
+  // personInfo += "Children: " + person.asdfasf + "\n";
+  // TODO: finish getting the rest of the information to display
+  alert(personInfo);
+}
+
+function displayDescendants(person){
+
+  // var personInfo = "Children: " + person.asdf + "\n";
+  // personInfo += "Grandchildren: " + person.parents + "\n";
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
@@ -85,13 +108,18 @@ function promptFor(question, valid){
   } while(!response || !valid(response));
   return response;
 }
+function promptPersonFound(question, valid){
+  do{
+    var response = prompt(question).replace(/ /g,'').toLowerCase();
+  } while(!response || !valid(response));
+  return response;
+}
 
 // helper function to pass into promptFor to validate yes/no answers
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 function selectTraitTypes(input){
-
   return input.toLowerCase()  == "gender" || input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
 }
 function selectMaleOrFemale(input){
@@ -115,11 +143,8 @@ function selectOccupation(input){
 function selectPromptPersonFound(input){
   return input.toLowerCase() == "info" || input.toLowerCase() == "family" || input.toLowerCase() == "descendants" || input.toLowerCase() == "restart" || input.toLowerCase() == "quit";
 }
-
-// helper function to pass in as default promptFor validation
 function chars(input){
-  return true; // default validation only
-  //more to do here???
+  return true; 
 }
 function searchByTraits(people){
 
@@ -131,7 +156,6 @@ function searchByTraits(people){
       case 'gender':
         results = searchByGender(people);
         break;
-
       case 'age':
         searchByAge(people);
         break;
@@ -197,6 +221,12 @@ function convertDOBsToAges(people){
       person.age = age;
     });
 }
+
+function searchForParents();
+function searchForCurrentSpouse();
+
+function searchForSiblings();
+
 
 
 function searchByHeight(people){
