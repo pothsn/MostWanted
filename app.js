@@ -1,19 +1,23 @@
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  var foundPerson;
   switch(searchType){
     case 'yes':
       // TODO: search by name
-    var foundPerson = searchByName(people);
+    foundPerson = searchByName(people);
     break;
     case 'no':
     // TODO: search by traits
-    var foundPerson = searchByTraits(people);
+    foundPerson = searchByTraits(people);
     break;
     default:
     app(people); // restart app
     break;
   }
-  mainMenu(foundPerson[0], people);
+  if (foundPerson.length === 1) {
+    searchByTraits(foundPerson);
+      mainMenu(foundPerson[0], people);
+  }
 }
 
 // Menu function to call once you find who you are looking for
@@ -98,6 +102,10 @@ function selectMaleOrFemale(input){
 // function selectBirthRange(input){
 //   return input.toLowerCase() = 
 // }
+function selectHeight(input){
+  return input.toLowerCase() == 58 || input.toLowerCase() == 59 || input.toLowerCase() == 61 || input.toLowerCase() == 62 || input.toLowerCase() == 63 || input.toLowerCase() == 65 || input.toLowerCase() == 66 || input.toLowerCase() == 67 || input.toLowerCase() == 69 || input.toLowerCase() == 70 || input.toLowerCase() == 71 || input.toLowerCase() == 72 || input.toLowerCase() == 74 || input.toLowerCase() == 76;
+}
+
 // function selectWeightRange(input){
 //   return input.toLowerCase() =
 // }
@@ -112,10 +120,11 @@ function chars(input){
   return true; // default validation only
 }
 function searchByTraits(people){
-  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes);
+  var searchType = promptFor("Which trait would you like to search by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes).trim();
+  var results = [];
     switch(searchType){
       case 'gender':
-        searchByGender(people);
+        results = searchByGender(people);
         break;
       case 'dateofbirth':
         searchByDateOfBirth(people);
@@ -133,6 +142,7 @@ function searchByTraits(people){
         searchByOccupation(people);
         break;
     }
+    return results;
 }
 function searchByGender(people){
   var searchGender = promptFor("Enter gender: Male or female.", selectMaleOrFemale).trim();
@@ -145,11 +155,23 @@ function searchByGender(people){
       }
     })
   displayPeople(genderList);
+  return genderList;
  }
 function searchByDateOfBirth(people){
+
 }
 function searchByHeight(people){
-  
+  var searchHeight = promptFor("Enter the person's height", isNumber).trim();
+    let heightList = people.filter(function(person){
+      if(person.height == searchHeight){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+  displayPeople(heightList);  
+  return heightList;
 }
 function searchByWeight(people){
   
@@ -157,7 +179,7 @@ function searchByWeight(people){
 function searchByEyeColor(people){
   var searchEyeColor = promptFor("Enter eye color: Black, blue, brown, green or hazel", selectEyeColor).trim();
     let eyeColorList = people.filter(function(person){
-      if(person.eyecolor === searchEyeColor){
+      if(person.eyeColor === searchEyeColor){
         return true;
       }
       else{
