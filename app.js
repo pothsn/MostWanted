@@ -1,19 +1,23 @@
 function app(people){
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
+  var foundPerson;
   switch(searchType){
     case 'yes':
       // TODO: search by name
-    var foundPerson = searchByName(people);
+    foundPerson = searchByName(people);
     break;
     case 'no':
     // TODO: search by traits
-    var foundPerson = searchByTraits(people);
+    foundPerson = searchByTraits(people);
     break;
     default:
     app(people); // restart app
     break;
   }
-  mainMenu(foundPerson[0], people);
+  if (foundPerson.length === 1) {
+    searchByTraits(foundPerson);
+      mainMenu(foundPerson[0], people);
+  }
 }
 
 // Menu function to call once you find who you are looking for
@@ -112,10 +116,11 @@ function chars(input){
   return true; // default validation only
 }
 function searchByTraits(people){
-  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes);
+  var searchType = promptFor("Which trait would you like to seach by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes).trim();
+  var results = [];
     switch(searchType){
       case 'gender':
-        searchByGender(people);
+        results = searchByGender(people);
         break;
       case 'dateofbirth':
         searchByDateOfBirth(people);
@@ -133,6 +138,7 @@ function searchByTraits(people){
         searchByOccupation(people);
         break;
     }
+    return results;
 }
 function searchByGender(people){
   var searchGender = promptFor("Enter gender: Male or female.", selectMaleOrFemale).trim();
@@ -145,8 +151,10 @@ function searchByGender(people){
       }
     })
   displayPeople(genderList);
+  return genderList;
  }
 function searchByDateOfBirth(people){
+
 }
 function searchByHeight(people){
   
@@ -157,7 +165,7 @@ function searchByWeight(people){
 function searchByEyeColor(people){
   var searchEyeColor = promptFor("Enter eye color: Black, blue, brown, green or hazel", selectEyeColor).trim();
     let eyeColorList = people.filter(function(person){
-      if(person.eyecolor === searchEyeColor){
+      if(person.eyeColor === searchEyeColor){
         return true;
       }
       else{
