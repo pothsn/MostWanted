@@ -1,4 +1,5 @@
 function app(people){
+  convertDOBsToAges(people);
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   var foundPerson;
   switch(searchType){
@@ -53,8 +54,8 @@ function searchByName(people){
     if(person.firstName.toLowerCase() === firstName && person.lastName.toLowerCase() === lastName){
       return true;
     }
-    else{
-      return false;
+      else{
+      return false
     }
   })
 
@@ -85,19 +86,13 @@ function promptFor(question, valid){
   return response;
 }
 
-function promptPersonFound(question, valid){
-  do{
-    var response = prompt(question).replace(/ /g,'').toLowerCase();
-  } while(!response || !valid(response));
-  return response;
-}
-
 // helper function to pass into promptFor to validate yes/no answers
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 function selectTraitTypes(input){
-  return input.toLowerCase()  == "gender" || input.toLowerCase() == "dateofbirth" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
+
+  return input.toLowerCase()  == "gender" || input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
 }
 function selectMaleOrFemale(input){
   return input.toLowerCase() == "male" || input.toLowerCase() == "female";
@@ -124,17 +119,21 @@ function selectPromptPersonFound(input){
 // helper function to pass in as default promptFor validation
 function chars(input){
   return true; // default validation only
+  //more to do here???
 }
 function searchByTraits(people){
-  var searchType = promptFor("Which trait would you like to search by? Enter: Gender, date of birth, height, weight, eye color, occupation.", selectTraitTypes).trim();
+
+  var searchType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
+
 
   var results = [];
     switch(searchType){
       case 'gender':
         results = searchByGender(people);
         break;
-      case 'dateofbirth':
-        searchByDateOfBirth(people);
+
+      case 'age':
+        searchByAge(people);
         break;
       case 'height':
         searchByHeight(people);
@@ -164,9 +163,42 @@ function searchByGender(people){
   displayPeople(genderList);
   return genderList;
  }
-function searchByDateOfBirth(people){
 
+function searchByAge(people){
+  var searchAge = promptFor("Enter age.", isNumber).trim();
+    var ageList = people.filter(function(person){
+      if(person.age == searchAge){
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+  displayPeople(ageList);
+  return ageList;
 }
+function convertDOBsToAges(people){
+  var today = new Date();
+    people.map(function(person){
+      let persondob = person.dob.split("/");
+      let month = persondob[0];
+      let day = persondob[1];
+      let year = persondob[2];
+      let personBirthYear = today.getFullYear() - year;
+        if(today.getMonth() > month){
+          personBirthYear ++
+        }
+        else if(today.getMonth == month){
+          if(today.getDate() > day){
+            personBirthYear++
+          }
+        }
+      let age = personBirthYear
+      person.age = age;
+    });
+}
+
+
 function searchByHeight(people){
   var searchHeight = promptFor("Enter the person's height", isNumber).trim();
     let heightList = people.filter(function(person){
@@ -180,6 +212,7 @@ function searchByHeight(people){
   displayPeople(heightList);  
   return heightList;
 }
+
 function searchByWeight(people){
     var searchWeight = promptFor("Enter weight.", isNumber).trim();
       
