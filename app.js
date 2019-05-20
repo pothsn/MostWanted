@@ -90,9 +90,10 @@ function displayFamily(person, people){
   }
   for (let index = 0; index < parents.length; index++) {
     const element = parents[index];
-   personInfo += "Parents First Name: " + element.firstName +"\n";
+   personInfo += "Parent Name: " + element.firstName + " " + element.lastName +"\n";
   }
-  // var personInfo = "Parents: " + person.parents + "\n";
+
+
   // // personInfo += "Children: " + person.asdfasf + "\n";
   // // TODO: finish getting the rest of the information to display
   alert(personInfo);
@@ -293,23 +294,21 @@ function convertDOBsToAges(people){
 
 //   return foundPerson;
 // }
+
 function searchForParents(person, people){
 
   var parentsName = people.filter(function(p){
     for (let index = 0; index < person.parents.length; index++) {
       const element = person.parents[index];
-      return element === p.id; 
+      if (element === p.id) {
+        return true;
+      } 
     }
   });
 return parentsName;
 }
 
 
-//   people.find(searchForParents("parents"[0]));
-//   function displayPerson(person){
-//     var personInfo = "First Name: " + person.firstName + "\n";
-//     personInfo += "Last Name: " + person.lastName + "\n";
-// // {
 // function searchForCurrentSpouse();
 
 // function searchForSiblings();
