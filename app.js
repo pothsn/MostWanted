@@ -83,16 +83,13 @@ function displayPerson(person){
 }
 function displayFamily(person, people){
   var parents = searchForParents(person, people);
-<<<<<<< HEAD
+
   var currentSpouse = searchForCurrentSpouse(person, people);
-  
-  // let personInfo = "";
-=======
+
   let siblings = searchForSiblings(person, people);
   // let spouse = searchForCurrentSpouse(person, people);
 
   let personInfo = "";
->>>>>>> 055d7b79543e460160df19bcecd587b012143f32
   if(parents.length === 0){
     personInfo = "No Parents"
   }
