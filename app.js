@@ -82,7 +82,8 @@ function displayPerson(person){
   alert(personInfo);
 }
 function displayFamily(person, people){
-  let parents = searchForParents(person, people);
+  var parents = searchForParents(person, people);
+  var currentSpouse = searchForCurrentSpouse(person, people);
   let siblings = searchForSiblings(person, people);
   // let spouse = searchForCurrentSpouse(person, people);
 
@@ -105,18 +106,37 @@ function displayFamily(person, people){
     }
   }
 
+
+  var currentSpouse = searchForCurrentSpouse(person, people);
+  // let currentSpouseInfo = "";
+  if(currentSpouse.length === null){
+    currentSpouseInfo = "No Current Spouse"
+  }
+  else{
+    currentSpouse.length === p.id;
+      currentSpouseInfo = "Current Spouse Name :" + currentSpouse.firstName +"\n";
+    }
+
+    alert(personInfo + currentSpouseInfo);
+  }
+
+  
   // // personInfo += "Children: " + person.asdfasf + "\n";
   // // TODO: finish getting the rest of the information to display
-  alert(personInfo);
-}
+  
+  // alert(personInfo);
+  // alert(currentSpouseInfo);
+  // alert(personInfo + currentSpouseInfo);
+// }
 
-function displayDescendants(person){
 
-  // var personInfo = "Children: " + person.asdf + "\n";
-  // personInfo += "Grandchildren: " + person.parents + "\n";
-  // TODO: finish getting the rest of the information to display
-  alert(personInfo);
-}
+// function displayDescendants(person){
+
+//   // var personInfo = "Children: " + person.asdf + "\n";
+//   // personInfo += "Grandchildren: " + person.parents + "\n";
+//   // TODO: finish getting the rest of the information to display
+//   alert(personInfo);
+// }
 
 // function that prompts and validates user input
 function promptFor(question, valid){
@@ -290,6 +310,7 @@ function convertDOBsToAges(people){
 }
 
 
+
 // function searchByName(people){
 //   var firstName = promptFor("What is the person's first name?", chars);
 //   var lastName = promptFor("What is the person's last name?", chars);
@@ -307,6 +328,7 @@ function convertDOBsToAges(people){
 // }
 
 function searchForParents(person, people){
+
   var parentsName = people.filter(function(el){
     for (let index = 0; index < person.parents.length; index++) {
       const element = person.parents[index];
@@ -316,6 +338,18 @@ function searchForParents(person, people){
     }
   });
 return parentsName;
+}
+
+
+function searchForCurrentSpouse(person, people){
+  if(person.currentSpouse === null) {
+    return [];
+  }
+  var currentSpouseName = people.filter(function(p){
+  if (person.currentSpouse === p.id) {
+    return currentSpouse;
+  }
+});
 }
 
 function searchForSiblings(person, people){
@@ -340,6 +374,7 @@ function searchForSiblings(person, people){
   }
   return siblingsNames;
 }
+
 function searchByHeight(people){
   var searchHeight = promptFor("Enter the person's height", isNumber).trim();
     let heightList = people.filter(function(person){
