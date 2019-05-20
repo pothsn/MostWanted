@@ -125,7 +125,7 @@ function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
 function selectSingleOrMulti(input){
-  return input.toLowerCase() == "onetrait" || input.toLowerCase() == "multipletraits"
+  return input.toLowerCase() == "one" || input.toLowerCase() == "multiple"
 }
 function selectTraitTypes(input){
   return input.toLowerCase()  == "gender" || input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
@@ -150,39 +150,39 @@ function chars(input){
   return true; 
 }
 function searchByTraits(people){
-  var searchType = promptFor("Would you like to search by one trait or multiple traits? Enter one trait or multiple traits.", selectSingleOrMulti).trim();
+  var searchType = promptFor("Would you like to search by one trait or multiple traits? Enter one or multiple.", selectSingleOrMulti).trim();
     switch (searchType){
-      case "onetrait":
+      case "one":
         searchByOneTrait(people);
-      case "multipletraits":
+      case "multiple":
         searchByMultipleTraits(people);
     } 
 }
-function searchByMultipleTrait(people){
+function searchByMultipleTraits(people){
   var searchTraitType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
   var results = [];
     switch(searchTraitType){
       case 'gender':
-        searchByGender(people);
+       results = searchByGender(people);
         break;
       case 'age':
-        searchByAge(people);
+       restults = searchByAge(people);
         break;
       case 'height':
-        searchByHeight(people);
+        results = searchByHeight(people);
         break;
       case 'weight':
-        searchByWeight(people);
+        results = searchByWeight(people);
         break;
       case 'eyecolor':
-        searchByEyeColor(people);
+        results = searchByEyeColor(people);
         break;
       case 'occupation':
-        searchByOccupation(people);
+        results = searchByOccupation(people);
         break;
       }
       while(results.length > 1){
-        searchByOneTrait(results);
+        searchByMultipleTraits(results);
       }
    return results;
 }
@@ -194,7 +194,7 @@ var searchTraitType = promptFor("Which trait would you like to search by? Enter:
         results = searchByGender(people);
         break;
       case 'age':
-        result = searchByAge(people);
+        results = searchByAge(people);
         break;
       case 'height':
          results = searchByHeight(people);
@@ -294,14 +294,23 @@ function convertDOBsToAges(people){
 //   return foundPerson;
 // }
 function searchForParents(person, people){
-
-  var parentsName = people.filter(function(p){
+  var parentsName = people.filter(function(people){
     for (let index = 0; index < person.parents.length; index++) {
-      const element = person.parents[index];
+      let element = person.parents[index];
       return element === p.id; 
     }
   });
 return parentsName;
+}
+
+function searchForSiblings(person, people){
+  let siblingsNames = people.filter(function(people){
+    if(person.parents = people.parents){
+      let element = person.parents[index];
+      return element === p.id;
+    }
+  })
+  return siblingsNames
 }
 
 
