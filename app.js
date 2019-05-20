@@ -15,6 +15,7 @@ function app(people){
   }
     mainMenu(foundPerson[0], people);
 }
+
 function mainMenu(person, people){
   if(!person){
     alert("Could not find that individual.");
@@ -81,63 +82,57 @@ function displayPerson(person){
   // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
+
 function displayFamily(person, people){
-  var parents = searchForParents(person, people);
-
-  var currentSpouseId = searchForCurrentSpouse(person, people);
-  var currentSpouseArray = [];
-
-  if(currentSpouseId !== null) { // there is a spouse
-    currentSpouseArray = searchById(currentSpouseId, people); 
-    // searchById creates an array by the ID number people.filter(function(el)) {
-
-    }
-
- 
-
-
+  let parents = searchForParents(person, people);
   let siblings = searchForSiblings(person, people);
-  let currentSpouse = searchForCurrentSpouse(person, people);
+  let spouse = searchForCurrentSpouse(person, people);
 
   let personInfo = "";
-  if(parents.length === 0){
-    personInfo = "No Parents"
-  }
-  for (let index = 0; index < parents.length; index++) {
-    const element = parents[index];
-   personInfo += "Parent Name: " + element.firstName + " " + element.lastName +"\n";
-  }
 
-  let spouseInfo = "";
-  if(currentSpouseArray.length === 0){
-    spouseInfo = "No Spouse Found"
-  }
-  for(let i = 0; i < currentSpouseArray.length; i++) {
-    let element = currentSpouseArray[i];
-    spouseInfo += "Spouse name: " + element.firstName + " " + element.lastName +"\n";
-  }
-    alert(personInfo + currentSpouse + siblings);
-    // alert(personInfo + siblings);
-    // alert(personInfo);
-  }
+    if(parents.length === 0){
+      personInfo = "No parents" + "\n";
+    }
+    else{
+      for(let i = 0; i < parents.length; i++) {
+        let el = parents[i];
+        personInfo += "Parent Name: " + el.firstName + " " + el.lastName + "\n";
+      }  
+    }
+
+    if(siblings.length === 0){
+      personInfo += "No siblings" + "\n";
+    }
+    else{
+      for(let i = 0; i < siblings.length; i++) {
+        personInfo += "Sibling: " + siblings[i].firstName + " " + siblings[i].lastName + "\n";
+      }
+    }
+
+    if(spouse.length === 0){
+      personInfo += "No spouse" + "\n";
+    }
+    else{
+      for(let i = 0; i < spouse.length; i++) {
+        personInfo += "Spouse: " + spouse[i].firstName + " " + spouse[i].lastName + "\n";
+      }
+    }
+  alert(personInfo);
+}
 
   
   // // personInfo += "Children: " + person.asdfasf + "\n";
   // // TODO: finish getting the rest of the information to display
   
-  // alert(personInfo);
-  // alert(currentSpouseInfo);
-  // alert(personInfo + currentSpouseInfo);
-// }
 
 
-// function displayDescendants(person){
+function displayDescendants(person){
 
-//   // var personInfo = "Children: " + person.asdf + "\n";
-//   // personInfo += "Grandchildren: " + person.parents + "\n";
-//   // TODO: finish getting the rest of the information to display
-//   alert(personInfo);
-// }
+  // var personInfo = "Children: " + person.asdf + "\n";
+  // personInfo += "Grandchildren: " + person.parents + "\n";
+  // TODO: finish getting the rest of the information to display
+  alert(personInfo);
+}
 
 // function that prompts and validates user input
 function promptFor(question, valid){
@@ -146,6 +141,7 @@ function promptFor(question, valid){
   } while(!response || !valid(response));
   return response;
 }
+
 function promptPersonFound(question, valid){
   do{
     var response = prompt(question).replace(/ /g,'').toLowerCase();
@@ -157,15 +153,19 @@ function promptPersonFound(question, valid){
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
+
 function selectSingleOrMulti(input){
   return input.toLowerCase() == "one" || input.toLowerCase() == "multiple"
 }
+
 function selectTraitTypes(input){
   return input.toLowerCase()  == "gender" || input.toLowerCase() == "age" || input.toLowerCase() == "height" || input.toLowerCase() == "weight" || input.toLowerCase() == "eyecolor" || input.toLowerCase() == "occupation";
 }
+
 function selectMaleOrFemale(input){
   return input.toLowerCase() == "male" || input.toLowerCase() == "female";
 }
+
 function isNumber(input){
   return !isNaN(input); 
 }
@@ -173,15 +173,19 @@ function isNumber(input){
 function selectEyeColor(input){
   return input.toLowerCase() == "black" || input.toLowerCase() == "blue" || input.toLowerCase() == "brown" || input.toLowerCase() == "green" || input.toLowerCase() == "hazel";
 }
+
 function selectOccupation(input){
   return input.toLowerCase() == "architect" || input.toLowerCase() == "assistant" || input.toLowerCase() == "doctor" || input.toLowerCase() == "landscaper" || input.toLowerCase() == "nurse" || input.toLowerCase() == "politician" || input.toLowerCase() == "programmer" || input.toLowerCase() == "student";
 }
+
 function selectPromptPersonFound(input){
   return input.toLowerCase() == "info" || input.toLowerCase() == "family" || input.toLowerCase() == "descendants" || input.toLowerCase() == "restart" || input.toLowerCase() == "quit";
 }
+
 function chars(input){
   return true; 
 }
+
 function searchByTraits(people){
   var searchType = promptFor("Would you like to search by one trait or multiple traits? Enter one or multiple.", selectSingleOrMulti).trim();
     switch (searchType){
@@ -191,6 +195,7 @@ function searchByTraits(people){
         searchByMultipleTraits(people);
     } 
 }
+
 function searchByMultipleTraits(people){
   var searchTraitType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
   var results = [];
@@ -219,6 +224,7 @@ function searchByMultipleTraits(people){
       }
    return results;
 }
+
 function searchByOneTrait(people){
 var searchTraitType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
   var results = [];
@@ -299,6 +305,7 @@ function searchByAge(people){
   displayPeople(ageList);
   return ageList;
 }
+
 function convertDOBsToAges(people){
   var today = new Date();
     people.map(function(person){
@@ -320,26 +327,7 @@ function convertDOBsToAges(people){
     });
 }
 
-
-
-// function searchByName(people){
-//   var firstName = promptFor("What is the person's first name?", chars);
-//   var lastName = promptFor("What is the person's last name?", chars);
-
-//   var foundPerson = people.filter(function(person){
-//     if(person.firstName.toLowerCase() === firstName && person.lastName.toLowerCase() === lastName){
-//       return true;
-//     }
-//       else{
-//       return false
-//     }
-//   })
-
-//   return foundPerson;
-// }
-
 function searchForParents(person, people){
-
   var parentsName = people.filter(function(el){
     for (let index = 0; index < person.parents.length; index++) {
       const element = person.parents[index];
@@ -351,27 +339,21 @@ function searchForParents(person, people){
 return parentsName;
 }
 
-// function searchForCurrentSpouse(person, people){
-//   if(person.currentSpouse === null) {
-//     return [];
-//   }
-//   var currentSpouseName = people.filter(function(p){
-//   if (person.currentSpouse === p.id) {
-//     return currentSpouse;
-//   }
-// });
-// }
-
-
 function searchForCurrentSpouse(person, people){
-
-  let currentSpouseId = person.currentSpouse
-  if(person.currentSpouse === null){
-    return  currentSpouseId
+  let spouseName;
+  if(person.currentSpouse == undefined){
+    return [];
   }
-  else(person.currentSpouse == currentSpouseId)
-  {
-    return currentSpouseId
+  else{
+    spouseName = people.filter(function(el){
+      if(person.currentSpouse == el.id){
+        return true;
+      }
+      else{
+        return false
+      }
+    })
+   return spouseName
   }
 }
 
@@ -380,7 +362,7 @@ function searchForCurrentSpouse(person, people){
 function searchForSiblings(person, people){
   let siblingsNames;
   if(person.parents[0] == undefined){
-    return
+    return [];
   }
   else{
     siblingsNames = people.filter(function(el){
@@ -428,6 +410,7 @@ function searchByWeight(people){
     displayPeople(weightList);
     return weightList;
 }
+
 function searchByEyeColor(people){
   var searchEyeColor = promptFor("Enter eye color: Black, blue, brown, green or hazel", selectEyeColor).trim();
     let eyeColorList = people.filter(function(person){
@@ -441,6 +424,7 @@ function searchByEyeColor(people){
   displayPeople(eyeColorList);
   return eyeColorList;
 }
+
 function searchByOccupation(people){
   var searchOccupation = promptFor("Enter occupation: Architect, assistant, doctor, landscaper, nurse, politician, programmer or student.", selectOccupation).trim();
     let occupationList = people.filter(function(person){
