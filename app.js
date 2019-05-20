@@ -132,6 +132,7 @@ function getDescendants(person, people, descendants = []){
   return descendants
 }
 
+
   // var personInfo = "Children: " + person.asdf + "\n";
   // personInfo += "Grandchildren: " + person.parents + "\n";
   // TODO: finish getting the rest of the information to display
@@ -401,6 +402,8 @@ function searchForCurrentSpouse(person, people){
    return spouseName
   }
 }
+
+
 
 function searchForSiblings(person, people){
   let siblingsNames;
