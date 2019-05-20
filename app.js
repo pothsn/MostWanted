@@ -122,12 +122,32 @@ function displayFamily(person, people){
 
   // // TODO: finish getting the rest of the information to display
   
-function displayDescendants(person){
+function displayDescendants(person, people){
+  let children = getDescendants(person, people);
 
-  // var personInfo = "Children: " + person.asdf + "\n";
-  // personInfo += "Grandchildren: " + person.parents + "\n";
-  // TODO: finish getting the rest of the information to display
+  let personInfo = "";
+  if(descendants.length === 0){
+    personInfo = "This person's children are" + "\n";
+  }
+  else{
+    for(let i = 0; i < descendants.length; i++) {
+      let el = children[i];
+      personInfo += "Parent Name: " + el.firstName + " " + el.lastName + "\n";
+    }  
+  }
   alert(personInfo);
+  }
+
+function getDescendants(person, people, descendants = []){
+   people.map(function(el){
+      if(person.id == el.parents[0] || person.id == el.parents[1]){
+        descendants.push(el);
+        getDescendants(el, people, descendants);
+        }
+      })
+      return descendants;
+}
+
 }
 
 // function that prompts and validates user input
@@ -325,6 +345,20 @@ function searchForParents(person, people){
   });
 return parentsName;
 }
+
+// function searchForChildren(person, people){
+//   var hasChildren = people.filter(function(el){
+//     if (el === ) {
+      
+//     }
+    
+//     for (let index = 0; index < person.parents.length; index++) {
+//       const el = person.parents[index];
+//       if(el ===)
+      
+//     }
+//   })
+// }
 
 function searchForCurrentSpouse(person, people){
   let spouseName;
