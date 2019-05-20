@@ -84,10 +84,20 @@ function displayPerson(person){
 function displayFamily(person, people){
   var parents = searchForParents(person, people);
 
-  var currentSpouse = searchForCurrentSpouse(person, people);
+  var currentSpouseId = searchForCurrentSpouse(person, people);
+  var currentSpouseArray = [];
+
+  if(currentSpouseId !== null) { // there is a spouse
+    currentSpouseArray = searchById(currentSpouseId, people); 
+    // searchById creates an array by the ID number people.filter(function(el)) {
+
+    }
+
+ 
+
 
   let siblings = searchForSiblings(person, people);
-  // let spouse = searchForCurrentSpouse(person, people);
+  let currentSpouse = searchForCurrentSpouse(person, people);
 
   let personInfo = "";
   if(parents.length === 0){
@@ -98,19 +108,17 @@ function displayFamily(person, people){
    personInfo += "Parent Name: " + element.firstName + " " + element.lastName +"\n";
   }
 
-
-
-  var currentSpouse = searchForCurrentSpouse(person, people);
-  // let currentSpouseInfo = "";
-  if(currentSpouse.length === null){
-    currentSpouseInfo = "No Current Spouse"
+  let spouseInfo = "";
+  if(currentSpouseArray.length === 0){
+    spouseInfo = "No Spouse Found"
   }
-  else{
-    currentSpouse.length === p.id;
-      currentSpouseInfo = "Current Spouse Name :" + currentSpouse.firstName +"\n";
-    }
-
-    alert(personInfo + currentSpouseInfo);
+  for(let i = 0; i < currentSpouseArray.length; i++) {
+    let element = currentSpouseArray[i];
+    spouseInfo += "Spouse name: " + element.firstName + " " + element.lastName +"\n";
+  }
+    alert(personInfo + currentSpouse + siblings);
+    // alert(personInfo + siblings);
+    // alert(personInfo);
   }
 
   
@@ -254,6 +262,7 @@ var searchTraitType = promptFor("Which trait would you like to search by? Enter:
         mainMenu(foundPerson[0], people)
         }
 }
+
 function searchByGender(people){
   var searchGender = promptFor("Enter gender: Male or female.", selectMaleOrFemale).trim();
     var genderList = people.filter(function(person){
@@ -266,6 +275,15 @@ function searchByGender(people){
     })
   displayPeople(genderList);
   return genderList;
+ }
+
+ function searchById(people){
+   let searchId = people.filter(function(person){
+     if(person.id == searchId){
+       return true;
+     }
+     return currentSpouse
+   }
  }
 
 function searchByAge(people){
@@ -333,17 +351,31 @@ function searchForParents(person, people){
 return parentsName;
 }
 
+// function searchForCurrentSpouse(person, people){
+//   if(person.currentSpouse === null) {
+//     return [];
+//   }
+//   var currentSpouseName = people.filter(function(p){
+//   if (person.currentSpouse === p.id) {
+//     return currentSpouse;
+//   }
+// });
+// }
+
 
 function searchForCurrentSpouse(person, people){
-  if(person.currentSpouse === null) {
-    return [];
+
+  let currentSpouseId = person.currentSpouse
+  if(person.currentSpouse === null){
+    return  currentSpouseId
   }
-  var currentSpouseName = people.filter(function(p){
-  if (person.currentSpouse === p.id) {
-    return currentSpouse;
+  else(person.currentSpouse == currentSpouseId)
+  {
+    return currentSpouseId
   }
-});
 }
+
+
 
 function searchForSiblings(person, people){
   let siblingsNames;
