@@ -83,9 +83,16 @@ function displayPerson(person){
 }
 function displayFamily(person, people){
   var parents = searchForParents(person, people);
+<<<<<<< HEAD
   var currentSpouse = searchForCurrentSpouse(person, people);
   
   // let personInfo = "";
+=======
+  let siblings = searchForSiblings(person, people);
+  // let spouse = searchForCurrentSpouse(person, people);
+
+  let personInfo = "";
+>>>>>>> 055d7b79543e460160df19bcecd587b012143f32
   if(parents.length === 0){
     personInfo = "No Parents"
   }
@@ -317,16 +324,18 @@ function convertDOBsToAges(people){
 // }
 
 function searchForParents(person, people){
-  var parentsName = people.filter(function(p){
+
+  var parentsName = people.filter(function(el){
     for (let index = 0; index < person.parents.length; index++) {
       const element = person.parents[index];
-      if (element === p.id) {
+      if (element === el.id) {
         return true;
       } 
     }
   });
 return parentsName;
 }
+
 
 function searchForCurrentSpouse(person, people){
   if(person.currentSpouse === null) {
@@ -339,22 +348,28 @@ function searchForCurrentSpouse(person, people){
 });
 }
 
-// function searchForSiblings(person, people){
-//   let siblingsNames = people.filter(function(people){
-//     if(person.parents = people.parents){
-//       let element = person.parents[index];
-//       return element === p.id;
-//     }
-//   })
-//   return siblingsNames
-// }
-
-
-// function searchForCurrentSpouse();
-
-// function searchForSiblings();
-
-
+function searchForSiblings(person, people){
+  let siblingsNames;
+  if(person.parents[0] == undefined){
+    return
+  }
+  else{
+    siblingsNames = people.filter(function(el){
+    if(el.parents[0] == undefined){
+      return false
+    }
+    else{
+      if(person.parents[0] == el.parents[1] || person.parents[1] == el.parents[1]){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+  });
+  }
+  return siblingsNames;
+}
 
 function searchByHeight(people){
   var searchHeight = promptFor("Enter the person's height", isNumber).trim();
