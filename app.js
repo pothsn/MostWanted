@@ -1,6 +1,5 @@
 function app(people){
   convertDOBsToAges(people);
-  searchForCurrentSpouse(people[0], people);
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   var foundPerson;
   switch(searchType){
