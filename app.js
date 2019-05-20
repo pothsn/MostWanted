@@ -120,12 +120,8 @@ function displayFamily(person, people){
   alert(personInfo);
 }
 
-  
-  // // personInfo += "Children: " + person.asdfasf + "\n";
   // // TODO: finish getting the rest of the information to display
   
-
-
 function displayDescendants(person){
 
   // var personInfo = "Children: " + person.asdf + "\n";
@@ -281,15 +277,6 @@ function searchByGender(people){
     })
   displayPeople(genderList);
   return genderList;
- }
-
- function searchById(people){
-   let searchId = people.filter(function(person){
-     if(person.id == searchId){
-       return true;
-     }
-     return currentSpouse
-   }
  }
 
 function searchByAge(people){
