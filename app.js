@@ -121,7 +121,6 @@ function displayFamily(person, people){
   alert(personInfo);
 }
 
-
 function getDescendants(person, people, descendants = []){
     people.map(function(el){
     if(person.id == el.parents[0] || person.id == el.parents[1]){
@@ -131,12 +130,6 @@ function getDescendants(person, people, descendants = []){
   })
   return descendants
 }
-
-
-  // var personInfo = "Children: " + person.asdf + "\n";
-  // personInfo += "Grandchildren: " + person.parents + "\n";
-  // TODO: finish getting the rest of the information to display
-
 
 function searchForSiblings(person, people){
   let siblingsNames;
@@ -160,18 +153,6 @@ function searchForSiblings(person, people){
   }
   return siblingsNames;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 function promptFor(question, valid){
   do{
@@ -385,20 +366,6 @@ function searchForParents(person, people){
 return parentsName;
 }
 
-// function searchForChildren(person, people){
-//   var hasChildren = people.filter(function(el){
-//     if (el === ) {
-      
-//     }
-    
-//     for (let index = 0; index < person.parents.length; index++) {
-//       const el = person.parents[index];
-//       if(el ===)
-      
-//     }
-//   })
-// }
-
 function searchForCurrentSpouse(person, people){
   let spouseName;
   if(person.currentSpouse == undefined){
@@ -416,8 +383,6 @@ function searchForCurrentSpouse(person, people){
    return spouseName
   }
 }
-
-
 
 function searchForSiblings(person, people){
   let siblingsNames;
