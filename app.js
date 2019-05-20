@@ -82,19 +82,28 @@ function displayPerson(person){
   alert(personInfo);
 }
 function displayFamily(person, people){
-  var parents = searchForParents(person, people);
+  let parents = searchForParents(person, people);
   let siblings = searchForSiblings(person, people);
   // let spouse = searchForCurrentSpouse(person, people);
 
   let personInfo = "";
-  if(parents.length === 0){
-    personInfo = "No Parents"
+  if(parents.length === undefined){
+    personInfo = "No parents";
   }
-  for (let index = 0; index < parents.length; index++) {
-    const element = parents[index];
-   personInfo += "Parent Name: " + element.firstName + " " + element.lastName +"\n";
+  else{
+    for(let i = 0; i < parents.length; i++) {
+      let el = parents[i];
+      personInfo += "Parent Name: " + el.firstName + " " + el.lastName +"\n";
+    }  
   }
-
+  if(siblings.length === undefined){
+    personInfo += "No siblings";
+  }
+  else{
+    for(let i = 0; i < siblings.length; i++) {
+      personInfo += "Sibling: " + siblings[i].firstName + " " + siblings[i].lastName +"\n";
+    }
+  }
 
   // // personInfo += "Children: " + person.asdfasf + "\n";
   // // TODO: finish getting the rest of the information to display
