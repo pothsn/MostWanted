@@ -1,5 +1,6 @@
 function app(people){
   convertDOBsToAges(people);
+  searchForCurrentSpouse(people[0], people);
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   var foundPerson;
   switch(searchType){
@@ -109,9 +110,16 @@ function displayFamily(person, people){
       }
     }
 
-
+    if(spouse.length === 0){
+      personInfo += "No spouse" + "\n";
+    }
+    else{
+      for(let i = 0; i < spouse.length; i++) {
+        personInfo += "Spouse: " + spouse[i].firstName + " " + spouse[i].lastName + "\n";
+      }
+    }
   alert(personInfo);
-  }
+}
 
   
   // // personInfo += "Children: " + person.asdfasf + "\n";
@@ -323,16 +331,22 @@ function searchForParents(person, people){
 return parentsName;
 }
 
-
 function searchForCurrentSpouse(person, people){
-  if(person.currentSpouse === null) {
+  let spouseName;
+  if(person.currentSpouse == undefined){
     return [];
   }
-  var currentSpouseName = people.filter(function(p){
-  if (person.currentSpouse === p.id) {
-    return currentSpouse;
+  else{
+    spouseName = people.filter(function(el){
+      if(person.currentSpouse == el.id){
+        return true;
+      }
+      else{
+        return false
+      }
+    })
+   return spouseName
   }
-});
 }
 
 function searchForSiblings(person, people){
