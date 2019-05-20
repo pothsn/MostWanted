@@ -1,5 +1,6 @@
 function app(people){
   convertDOBsToAges(people);
+  // getDescendants(people[8], people);
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   var foundPerson;
   switch(searchType){
@@ -33,7 +34,8 @@ function mainMenu(person, people){
     // TODO: get person's family
     break;
     case "descendants":
-    descendants = displayDescendants(person)
+    descendants = getDescendants(person, people);
+    displayPeople(descendants);
     // TODO: get person's descendants
     break;
     case "restart":
@@ -79,7 +81,6 @@ function displayPerson(person){
   personInfo += "age: " + person.age + "\n";
   personInfo += "eye color: " + person.eyeColor + "\n";
   personInfo += "occupation: " + person.occupation + "\n";
-  // TODO: finish getting the rest of the information to display
   alert(personInfo);
 }
 
@@ -120,37 +121,58 @@ function displayFamily(person, people){
   alert(personInfo);
 }
 
-  // // TODO: finish getting the rest of the information to display
-  
-function displayDescendants(person, people){
-  let children = getDescendants(person, people);
-
-  let personInfo = "";
-  if(descendants.length === 0){
-    personInfo = "This person's children are" + "\n";
-  }
-  else{
-    for(let i = 0; i < descendants.length; i++) {
-      let el = children[i];
-      personInfo += "Parent Name: " + el.firstName + " " + el.lastName + "\n";
-    }  
-  }
-  alert(personInfo);
-  }
 
 function getDescendants(person, people, descendants = []){
-   people.map(function(el){
-      if(person.id == el.parents[0] || person.id == el.parents[1]){
-        descendants.push(el);
-        getDescendants(el, people, descendants);
-        }
-      })
-      return descendants;
+    people.map(function(el){
+    if(person.id == el.parents[0] || person.id == el.parents[1]){
+      descendants.push(el);
+      getDescendants(el, people, descendants);
+    }
+  })
+  return descendants
 }
 
+
+  // var personInfo = "Children: " + person.asdf + "\n";
+  // personInfo += "Grandchildren: " + person.parents + "\n";
+  // TODO: finish getting the rest of the information to display
+
+
+function searchForSiblings(person, people){
+  let siblingsNames;
+  if(person.parents[0] == undefined){
+    return [];
+  }
+  else{
+    siblingsNames = people.filter(function(el){
+    if(el.parents[0] == undefined){
+      return false
+    }
+    else{
+      if(person.parents[0] == el.parents[1] || person.parents[1] == el.parents[1]){
+        return true;
+      }
+      else{
+        return false;
+      }
+    }
+  });
+  }
+  return siblingsNames;
 }
 
-// function that prompts and validates user input
+
+
+
+
+
+
+
+
+
+
+
+
 function promptFor(question, valid){
   do{
     var response = prompt(question).replace(/ /g,'').toLowerCase();
@@ -165,7 +187,6 @@ function promptPersonFound(question, valid){
   return response;
 }
 
-// helper function to pass into promptFor to validate yes/no answers
 function yesNo(input){
   return input.toLowerCase() == "yes" || input.toLowerCase() == "no";
 }
@@ -211,7 +232,7 @@ function searchByTraits(people){
         searchByMultipleTraits(people);
     } 
 }
-
+//BUG! When searching by multiple traits, when you try gender then eye color, for whatever next trait you try to search by, if none of the remaining people posess that trait it breaks.
 function searchByMultipleTraits(people){
   var searchTraitType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
   var results = [];
@@ -238,7 +259,25 @@ function searchByMultipleTraits(people){
       while(results.length > 1){
         searchByMultipleTraits(results);
       }
-   return results;
+   var selectName = prompt(results.map(function(person){
+    return person.firstName + " " + person.lastName;
+      }).join("\n") + "\n Is the person you are looking for listed here? Enter their name or quit.").toLowerCase();
+        if(selectName == "quit"){
+          app(people);
+        } 
+        else{
+          let splitName = selectName.split(" ");
+
+        var foundPerson = people.filter(function(person){
+          if(person.firstName.toLowerCase() === splitName[0].toLowerCase() && person.lastName.toLowerCase() === splitName[1].toLowerCase()){
+            return true;
+          }
+            else{
+            return false
+          }
+        })
+        mainMenu(foundPerson[0], people)
+        }
 }
 
 function searchByOneTrait(people){
