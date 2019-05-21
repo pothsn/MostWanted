@@ -122,7 +122,6 @@ function displayFamily(person, people){
   alert(personInfo);
 }
 
-
 function getDescendants(person, people, descendants = []){
     people.map(function(el){
     if(person.id == el.parents[0] || person.id == el.parents[1]){
@@ -132,12 +131,6 @@ function getDescendants(person, people, descendants = []){
   })
   return descendants
 }
-
-
-  // var personInfo = "Children: " + person.asdf + "\n";
-  // personInfo += "Grandchildren: " + person.parents + "\n";
-  // TODO: finish getting the rest of the information to display
-
 
 function searchForSiblings(person, people){
   let siblingsNames;
@@ -396,8 +389,6 @@ function searchForCurrentSpouse(person, people){
    return spouseName
   }
 }
-
-
 
 function searchForSiblings(person, people){
   let siblingsNames;
