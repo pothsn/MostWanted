@@ -54,7 +54,7 @@ function searchByName(people){
       return true;
     }
       else{
-      return false
+      return false;
     }
   })
 
@@ -125,7 +125,7 @@ function getDescendants(person, people, descendants = []){
     }
   })
   if(descendants == 0){
-    alert("This person has no descendants.")
+    alert("This person has no descendants.");
     return app(people);
   }
   else{
@@ -175,7 +175,7 @@ function yesNo(input){
 }
 
 function selectSingleOrMulti(input){
-  return input.toLowerCase() == "one" || input.toLowerCase() == "multiple"
+  return input.toLowerCase() == "one" || input.toLowerCase() == "multiple";
 }
 
 function selectTraitTypes(input){
@@ -241,7 +241,7 @@ function searchByMultipleTraits(people){
       }
       while(results.length > 1 || results.length === 0 ){
         if(results.length === 0 ){
-          alert("Your search yielded no results, resuming from last search.")
+          alert("Your search yielded no results, resuming from last search.");
           searchByMultipleTraits(people);
         } else{
           searchByMultipleTraits(results);
@@ -261,7 +261,7 @@ function searchByMultipleTraits(people){
             return true;
           }
             else{
-            return false
+            return false;
           }
         })
         mainMenu(foundPerson[0], people)
@@ -305,10 +305,10 @@ var searchTraitType = promptFor("Which trait would you like to search by? Enter:
             return true;
           }
             else{
-            return false
+            return false;
           }
         })
-        mainMenu(foundPerson[0], people)
+        mainMenu(foundPerson[0], people);
         }
 }
 
@@ -353,10 +353,10 @@ function convertDOBsToAges(people){
         }
         else if(today.getMonth == month){
           if(today.getDate() > day){
-            personBirthYear++
+            personBirthYear++;
           }
         }
-      let age = personBirthYear
+      let age = personBirthYear;
       person.age = age;
     });
 }
@@ -384,10 +384,10 @@ function searchForCurrentSpouse(person, people){
         return true;
       }
       else{
-        return false
+        return false;
       }
     })
-   return spouseName
+   return spouseName;
   }
 }
 
@@ -399,7 +399,7 @@ function searchForSiblings(person, people){
   else{
     siblingsNames = people.filter(function(el){
     if(el.parents[0] == undefined){
-      return false
+      return false;
     }
     else{
       if(person.parents[0] == el.parents[1] || person.parents[1] == el.parents[1]){
@@ -436,7 +436,7 @@ function searchByWeight(people){
             return true;
           }
           else{
-            return false
+            return false;
           }
         })
     displayPeople(weightList);
