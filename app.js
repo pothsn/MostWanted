@@ -264,7 +264,8 @@ function searchByMultipleTraits(people){
             return false;
           }
         })
-        mainMenu(foundPerson[0], people)
+        mainMenu(foundPerson[0], people);
+        return app(people);
         }
 }
 
@@ -309,6 +310,7 @@ var searchTraitType = promptFor("Which trait would you like to search by? Enter:
           }
         })
         mainMenu(foundPerson[0], people);
+        return app(people);
         }
 }
 
