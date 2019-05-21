@@ -19,7 +19,7 @@ function app(people){
 function mainMenu(person, people){
   if(!person){
     alert("Could not find that individual.");
-    return app(people); // restart
+    return app(people); 
   }
 
   var displayOption = promptPersonFound("Found " + person.firstName + " " + person.lastName + " . Do you want to know their 'info', 'family', or 'descendants'? Type the option you want or 'restart' or 'quit'", selectPromptPersonFound).toLowerCase();
@@ -30,20 +30,18 @@ function mainMenu(person, people){
     break;
     case "family":
     family = displayFamily(person, people);
-    // TODO: get person's family
     break;
     case "descendants":
     descendants = getDescendants(person, people);
     displayPeople(descendants);
-    // TODO: get person's descendants
     break;
     case "restart":
-    app(people); // restart
+    app(people);
     break;
     case "quit":
-    return; // stop execution
+    return;
     default:
-    return mainMenu(person, people); // ask again
+    return mainMenu(person, people);
   }
 }
 
@@ -63,7 +61,6 @@ function searchByName(people){
   return foundPerson;
 }
 
-// alerts a list of people
 function displayPeople(people){
   if(people.length > 0){
   alert(people.map(function(person){
@@ -73,8 +70,6 @@ function displayPeople(people){
 }
 
 function displayPerson(person){
-  // print all of the information about a person:
-  // height, weight, age, name, occupation, eye color.
   var personInfo = "First Name: " + person.firstName + "\n";
   personInfo += "Last Name: " + person.lastName + "\n";
   personInfo += "height: " + person.height + "\n";
@@ -129,7 +124,13 @@ function getDescendants(person, people, descendants = []){
       getDescendants(el, people, descendants);
     }
   })
-  return descendants
+  if(descendants == 0){
+    alert("This person has no descendants.")
+    return app(people);
+  }
+  else{
+  return descendants;
+  }
 }
 
 function searchForSiblings(person, people){
@@ -140,7 +141,7 @@ function searchForSiblings(person, people){
   else{
     siblingsNames = people.filter(function(el){
     if(el.parents[0] == undefined){
-      return false
+      return false;
     }
     else{
       if(person.parents[0] == el.parents[1] || person.parents[1] == el.parents[1]){
@@ -240,7 +241,7 @@ function searchByMultipleTraits(people){
       }
       while(results.length > 1 || results.length === 0 ){
         if(results.length === 0 ){
-          alert("Your search yielded 0 results, resuming from last search.")
+          alert("Your search yielded no results, resuming from last search.")
           searchByMultipleTraits(people);
         } else{
           searchByMultipleTraits(results);
