@@ -1,6 +1,5 @@
 function app(people){
   convertDOBsToAges(people);
-  // getDescendants(people[8], people);
   var searchType = promptFor("Do you know the name of the person you are looking for? Enter 'yes' or 'no'", yesNo).toLowerCase();
   var foundPerson;
   switch(searchType){
@@ -66,9 +65,11 @@ function searchByName(people){
 
 // alerts a list of people
 function displayPeople(people){
+  if(people.length > 0){
   alert(people.map(function(person){
     return person.firstName + " " + person.lastName;
   }).join("\n"));
+  }
 }
 
 function displayPerson(person){
@@ -161,18 +162,6 @@ function searchForSiblings(person, people){
   return siblingsNames;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 function promptFor(question, valid){
   do{
     var response = prompt(question).replace(/ /g,'').toLowerCase();
@@ -232,7 +221,7 @@ function searchByTraits(people){
         searchByMultipleTraits(people);
     } 
 }
-//BUG! When searching by multiple traits, when you try gender then eye color, for whatever next trait you try to search by, if none of the remaining people posess that trait it breaks.
+
 function searchByMultipleTraits(people){
   var searchTraitType = promptFor("Which trait would you like to search by? Enter: Gender, age, height, weight, eye color, occupation.", selectTraitTypes).trim();
   var results = [];
@@ -256,8 +245,13 @@ function searchByMultipleTraits(people){
         results = searchByOccupation(people);
         break;
       }
-      while(results.length > 1){
-        searchByMultipleTraits(results);
+      while(results.length > 1 || results.length === 0 ){
+        if(results.length === 0 ){
+          alert("Your search yielded 0 results, resuming from last search.")
+          searchByMultipleTraits(people);
+        } else{
+          searchByMultipleTraits(results);
+        }
       }
    var selectName = prompt(results.map(function(person){
     return person.firstName + " " + person.lastName;
